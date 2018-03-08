@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyState : MonoBehaviour {
 
     public Animator Flonne;
-    public float Hp = 100;
+    public int Hp = 100;
     public int EnemyATK = 1;
     public float stateTime = 0;
     public float attackRange = 1;
     public float idleStateMaxTime;
-    public float attackStateMaxTime = 3;
+    public float attackStateMaxTime = 1;
     public float Speed;
     public Transform target;
     public Transform target2;
@@ -153,28 +153,42 @@ public class EnemyState : MonoBehaviour {
                   Enemystate = ENEMYSTATE.MOVE;
                 }
 
+                stateTime += Time.deltaTime;
+                if (stateTime > attackStateMaxTime)
+                {
+                    stateTime = 0f;
+                    Enemystate = ENEMYSTATE.IDLE;
+                    lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.DAMAGE;
+                }
+
+           
               
-                Enemystate = ENEMYSTATE.IDLE;
-                lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.DAMAGE;
 
                 break;
 
             case ENEMYSTATE.DAMAGE:
 
-                Hp -= lookPL[0].GetComponent<PlayerState>().PlayerATK;
-                if (Hp == 0)
+              
+                if (Hp <= 0)
                 {
                     Enemystate = ENEMYSTATE.DEAD;
+                    Hp = 0;
+                  
                 }
+                if (Hp > 0)
+                {
+                    Hp -= lookPL[0].GetComponent<PlayerState>().PlayerATK;
 
-                Enemystate = ENEMYSTATE.IDLE;
-
+                    Enemystate = ENEMYSTATE.ATTACK;
+                }
                 break;
             case ENEMYSTATE.DEAD:
 
+               
                 Destroy(gameObject);
                 lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.KILL;
                
+
                 break;
 
             case ENEMYSTATE.KILL:
@@ -190,6 +204,8 @@ public class EnemyState : MonoBehaviour {
                     lookEM.RemoveAt(0);
                 }
                 Enemystate = ENEMYSTATE.MOVE;
+
+           
                 //if(target3 != null)
                 //{
                 //    Vector3 dis = target.position - transform.position;
@@ -207,10 +223,9 @@ public class EnemyState : MonoBehaviour {
                 break;
 
             case ENEMYSTATE.FINISH:
-
-
-                gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
-
+    
+                gameObject.transform.Translate(Speed * Time.deltaTime, 0, 0);
+               
                 break;
 
         }
@@ -225,6 +240,7 @@ public class EnemyState : MonoBehaviour {
         {
            
             lookEM.Add(col.gameObject);
+            gameObject.transform.Translate(-0.01f, 0, 0);
         }
 
         if (col.gameObject.tag == "Player")
@@ -237,6 +253,7 @@ public class EnemyState : MonoBehaviour {
         if(col.gameObject.tag == "Respawn")
         {
             Enemystate = ENEMYSTATE.FINISH;
+            gameObject.transform.Rotate(0, 180, 0);
         }
         
     }
@@ -247,6 +264,7 @@ public class EnemyState : MonoBehaviour {
         {
             //Debug.Log(col.name);
             lookEM.Remove(col.gameObject);
+            Enemystate = ENEMYSTATE.MOVE;
         }
 
         if (col.gameObject.tag == "Player")

@@ -6,12 +6,12 @@ public class PlayerState : MonoBehaviour
 {
 
     public Animator Asagi;
-    public float Hp = 100;
+    public int Hp = 100;
     public int PlayerATK = 3;
     public float stateTime = 0;
     public float attackRange = 1;
     public float idleStateMaxTime;
-    public float attackStateMaxTime = 3;
+    public float attackStateMaxTime = 1;
     public float Speed;
     public Transform target;
     public Transform target2;
@@ -58,6 +58,8 @@ public class PlayerState : MonoBehaviour
                 {
                     Playerstate = PLAYERSTATE.MOVE;
                 }
+
+               
 
                 if (target2 == null)
                 {
@@ -154,19 +156,31 @@ public class PlayerState : MonoBehaviour
                     Playerstate = PLAYERSTATE.MOVE;
                 }
                 
-                Playerstate = PLAYERSTATE.IDLE;
-                lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.DAMAGE;
+                stateTime += Time.deltaTime;
+                if (stateTime > attackStateMaxTime)
+                {
+                    stateTime = 0f;
+                    Playerstate = PLAYERSTATE.IDLE;
+                    lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.DAMAGE;
+                }
+
                 break;
 
             case PLAYERSTATE.DAMAGE:
 
 
-                Hp -= lookEM[0].GetComponent<EnemyState>().EnemyATK;
-                if (Hp == 0)
+                if (Hp <= 0)
                 {
                     Playerstate = PLAYERSTATE.DEAD;
+                    Hp = 0;
+                
                 }
+                if (Hp > 0)
+                {
+                    Hp -= lookEM[0].GetComponent<EnemyState>().EnemyATK;
 
+                    Playerstate = PLAYERSTATE.ATTACK;
+                }
                 break;
             case PLAYERSTATE.DEAD:
 
@@ -191,6 +205,8 @@ public class PlayerState : MonoBehaviour
                     lookEM.RemoveAt(0);
                 }
                 Playerstate = PLAYERSTATE.MOVE;
+
+                //lookEM[0].GetComponent<EnemyState>().lookEM.RemoveAt(0);
                 //if(target3 != null)
                 //{
                 //    Vector3 dis = target.position - transform.position;
@@ -216,7 +232,7 @@ public class PlayerState : MonoBehaviour
 
         }
 
-      
+ 
     }
 
   
@@ -227,6 +243,7 @@ public class PlayerState : MonoBehaviour
         {
 
             lookPL.Add(col.gameObject);
+            gameObject.transform.Translate(0.01f, 0, 0);
         
         }
 
@@ -257,6 +274,7 @@ public class PlayerState : MonoBehaviour
         {
             //Debug.Log(col.name);
             lookPL.Remove(col.gameObject);
+            Playerstate = PLAYERSTATE.MOVE;
         }
     }
 }
