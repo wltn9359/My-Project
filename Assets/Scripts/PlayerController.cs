@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float attackStateMaxTime;
     public float Speed;
     public GameObject players;
-    Transform target;
+    public Transform target;
     Transform target2;
     public GameObject Bullet;
     public float coolTime;
@@ -38,9 +38,9 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
-        
-        target = GameObject.FindWithTag("Enemy").transform;
+
+
+        target = GameObject.FindGameObjectWithTag("Enemy").transform;
         target2 = GameObject.FindWithTag("Player").transform;
 
 
@@ -60,11 +60,12 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case PLAYERSTATE.MOVE:
-
-                    float distance = (target.position - transform.position).magnitude;
+                target = GameObject.FindGameObjectWithTag("Enemy").transform;
+                float distance = (target.position - transform.position).magnitude;
+                
                     if (distance < attackRange)
                     {
-                        PlayerState = PLAYERSTATE.ATTACK;
+                    PlayerState = PLAYERSTATE.ATTACK;
                         stateTime = attackStateMaxTime;
                     }
 
@@ -95,18 +96,19 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case PLAYERSTATE.DEAD:
-                GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
-
-
-                GetComponent<EnemyState>().target2 = null;
                 Destroy(gameObject);
-              
+                lookObj[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
+
+
                 break;
 
             case PLAYERSTATE.KILL:
 
-                GetComponent<EnemyState>().lookEM.Remove(lookObj[0]);
-
+                if (lookObj.Count > 0)
+                {
+                    lookObj.RemoveAt(0);
+                }
+               
                 break;
 
             }
