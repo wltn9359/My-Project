@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c196a609eb913784ca776e0655acf1ed
+timeCreated: 1520581679
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HYPMokGak-Bold
+  fontNames:
+  - HYPMokGak-Bold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -22,6 +22,7 @@ public class PlayerState : MonoBehaviour
     public enum PLAYERSTATE
     {
         IDLE = 0,
+        FIND,
         MOVE,
         ATTACK,
         DAMAGE,
@@ -41,9 +42,8 @@ public class PlayerState : MonoBehaviour
 
     void Start()
     {
-
         target = GameObject.FindGameObjectWithTag("Re").transform;
-        target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+
         //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 
@@ -52,8 +52,10 @@ public class PlayerState : MonoBehaviour
 
         switch (Playerstate)
         {
-            case PLAYERSTATE.IDLE:
 
+            case PLAYERSTATE.IDLE:
+               
+                //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
                 if (lookPL.Count == 0)
                 {
                     Playerstate = PLAYERSTATE.MOVE;
@@ -67,6 +69,7 @@ public class PlayerState : MonoBehaviour
                     {
                         lookPL.RemoveAt(0);
                         target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+
 
                         if (target2 == null)
                         {
@@ -84,6 +87,13 @@ public class PlayerState : MonoBehaviour
                         Playerstate = PLAYERSTATE.ATTACK;
                     }
                 }
+
+                break;
+
+            case PLAYERSTATE.FIND:
+
+                target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+                Playerstate = PLAYERSTATE.IDLE;
 
                 break;
 
@@ -226,7 +236,7 @@ public class PlayerState : MonoBehaviour
             case PLAYERSTATE.FINISH:
 
 
-                gameObject.transform.Translate(Speed * Time.deltaTime, 0, 0);
+                gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
 
                 break;
 
@@ -258,6 +268,7 @@ public class PlayerState : MonoBehaviour
         if (col.gameObject.tag == "Re")
         {
             Playerstate = PLAYERSTATE.FINISH;
+            gameObject.transform.Rotate(0, 180, 0);
         }
 
     }
