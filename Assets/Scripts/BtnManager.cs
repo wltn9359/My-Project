@@ -84,8 +84,8 @@ public class BtnManager : MonoBehaviour {
 
     public void Quest1()
     {
-        Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
-        if(War.transform.position.x<-1260)
+
+        if (War.transform.position.x<-1260)
         {
             War.transform.position = new Vector3(1280,transform.position.y,transform.position.z);
         }
@@ -105,7 +105,7 @@ public class BtnManager : MonoBehaviour {
                 GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
             }
         }
-
+        Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
     }
 
     public void Quest2()
