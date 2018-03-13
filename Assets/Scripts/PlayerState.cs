@@ -18,6 +18,7 @@ public class PlayerState : MonoBehaviour
     //public Transform target3;
     public List<GameObject> lookEM;
     public List<GameObject> lookPL;
+    public GameObject Btn;
 
     public enum PLAYERSTATE
     {
@@ -68,12 +69,10 @@ public class PlayerState : MonoBehaviour
                     if (lookPL.Count != 0)
                     {
                         lookPL.RemoveAt(0);
-                        target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
-
 
                         if (target2 == null)
                         {
-                            target2 = null;
+                            Playerstate = PLAYERSTATE.FIND;
                         }
 
                     }
@@ -92,20 +91,20 @@ public class PlayerState : MonoBehaviour
 
             case PLAYERSTATE.FIND:
 
-                target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
-                Playerstate = PLAYERSTATE.IDLE;
+
+                    target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+                    if (target2 == null)
+                    {
+                        Playerstate = PLAYERSTATE.MOVE;
+                    }
+
+
+                Playerstate = PLAYERSTATE.MOVE;
 
                 break;
 
             case PLAYERSTATE.MOVE:
-
-                // if (target2 == null)
-                // {
-                //     if (lookPL.Count == 0)
-                //     {
-                //         target2 = GameObject.FindGameObjectWithTag("Player").transform;
-                //     }
-                //}
+         
                 Asagi.SetBool("Attack", false);
                 if (target2 != null)
                 {
@@ -116,45 +115,20 @@ public class PlayerState : MonoBehaviour
                     }
                 }
 
-                //if(target3 == null)
-                //{
-                //    target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
-                //}
-
-                //if(target3 != null)
-                //{
-                //    float distance2 = (target3.position - transform.position).magnitude;
-                //    if (distance2 < attackRange)
-                //    {
-                //        Enemystate = ENEMYSTATE.IDLE;
-                //    }
-                //}
+              
 
                 Vector3 dir = target.position - transform.position;
                 dir.Normalize();
                 gameObject.transform.Translate(dir * Speed * Time.deltaTime);
 
-                //if (target2 == null)
-                //{
-                //    Vector3 dis = target.position - transform.position;
-                //    dis.Normalize();
-                //    gameObject.transform.Translate(dis * Speed * Time.deltaTime);
-                //}
-
+                
                 if (lookPL.Count > 0)
                 {
                     if (lookPL[0] != null)
                     {
                         Playerstate = PLAYERSTATE.IDLE;
                     }
-
-                    //else
-                    //{
-                    //    lookEM.RemoveAt(0);
-                    //}
-
                 }
-
 
                 break;
 
@@ -178,7 +152,6 @@ public class PlayerState : MonoBehaviour
 
             case PLAYERSTATE.DAMAGE:
 
-
                 if (Hp <= 0)
                 {
                     Playerstate = PLAYERSTATE.DEAD;
@@ -191,18 +164,17 @@ public class PlayerState : MonoBehaviour
 
                     Playerstate = PLAYERSTATE.ATTACK;
                 }
+
                 break;
             case PLAYERSTATE.DEAD:
 
-                
                 Destroy(gameObject);
                 lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
-
 
                 break;
 
             case PLAYERSTATE.KILL:
-                //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
+               
                 Debug.Log("kill");
 
                 if (lookPL.Count > 0)
@@ -216,25 +188,9 @@ public class PlayerState : MonoBehaviour
                 }
                 Playerstate = PLAYERSTATE.MOVE;
 
-                //lookEM[0].GetComponent<EnemyState>().lookEM.RemoveAt(0);
-                //if(target3 != null)
-                //{
-                //    Vector3 dis = target.position - transform.position;
-                //    dis.Normalize();
-                //    gameObject.transform.Translate(dis * Speed * Time.deltaTime);
-                //    if(lookEM.Count>0)
-                //    {
-                //        Enemystate = ENEMYSTATE.IDLE;
-                //    }
-                //}
-
-
-
-
-                break;
+               break;
 
             case PLAYERSTATE.FINISH:
-
 
                 gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
 
@@ -246,6 +202,11 @@ public class PlayerState : MonoBehaviour
     }
 
   
+    //public void FindEnemy()
+    //{
+    //    Playerstate = PLAYERSTATE.FIND;
+    //}
+
 
     void OnTriggerEnter(Collider col)
     {
@@ -254,7 +215,9 @@ public class PlayerState : MonoBehaviour
 
             lookPL.Add(col.gameObject);
             gameObject.transform.Translate(0.01f, 0, 0);
-        
+
+            Playerstate = PLAYERSTATE.FIND;
+
         }
 
         if (col.gameObject.tag == "Enemy")
@@ -269,8 +232,14 @@ public class PlayerState : MonoBehaviour
         {
             Playerstate = PLAYERSTATE.FINISH;
             gameObject.transform.Rotate(0, 180, 0);
+
         }
 
+        if (col.gameObject.tag == "Respawn")
+        {
+            Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
+            Debug.Log("HIT");
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -285,7 +254,9 @@ public class PlayerState : MonoBehaviour
         {
             //Debug.Log(col.name);
             lookPL.Remove(col.gameObject);
-            Playerstate = PLAYERSTATE.MOVE;
+            //Playerstate = PLAYERSTATE.MOVE;
+            Playerstate = PLAYERSTATE.FIND;
+           
         }
     }
 }

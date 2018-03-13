@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class BtnManager : MonoBehaviour {
 
+    public List<GameObject> Warning;
+    public List<GameObject> Fighting;
+
+    public GameObject War;
+    public GameObject close;
     public GameObject WarSpawn;
+
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
-    public GameObject[] PlayerQ;
-    public float StayTime;
-    public float DelTime;
+    public GameObject[] Players;
+    public GameObject[] Enemys;
     public GameObject[] QuestBtn;
-    public GameObject close;
     public GameObject[] EnemySpawn;
     public GameObject[] PlayerSpawn;
-    public List<GameObject> Fighting;
-    public GameObject War;
-    public List<GameObject> Warning;
+
+    public float StayTime;
+    public float DelTime;
+    
+    
+  
+
 
 
     private static BtnManager _instance = null;
@@ -38,14 +46,16 @@ public class BtnManager : MonoBehaviour {
 
     void Start ()
     {
-		
+
+        Players = GameObject.FindGameObjectsWithTag("Player");
+
 	}
-	
 
 	void Update ()
     {
+       
+     
 
-        
 
     }
 
@@ -53,7 +63,7 @@ public class BtnManager : MonoBehaviour {
     {
         QuestBtn[0].SetActive(false);
         QuestBtn[1].SetActive(true);
-      close.SetActive(true);
+        close.SetActive(true);
         Time.timeScale = 0; 
 
     }
@@ -84,30 +94,18 @@ public class BtnManager : MonoBehaviour {
 
     public void Quest1()
     {
-       
-        if (War.transform.position.x<-1260)
-        {
-            War.transform.position = new Vector3(1280,transform.position.y,transform.position.z);
-        }
-        Time.timeScale = 1;
         QuestBtn[1].SetActive(false);
         close.SetActive(false);
-        if (Warning.Count == 0)
-        {
-            Instantiate(EnemyQ[0], EnemySpawn[0].transform.position, EnemySpawn[0].transform.rotation);
-            Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
-            Fighting.Add(EnemyQ[0]);
-            Fighting.Add(EnemyQ[1]);
-            
-            if (Fighting.Count == 0)
-            {
-                QuestBtn[0].SetActive(false);
-               
-            }
-        }
+        Time.timeScale = 1;
+
+        Instantiate(EnemyQ[0], EnemySpawn[0].transform.position, EnemySpawn[0].transform.rotation);
+        Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
+
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
         Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
+        //Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
     }
 
     public void Quest2()

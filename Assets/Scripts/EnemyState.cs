@@ -184,12 +184,9 @@ public class EnemyState : MonoBehaviour {
                 break;
             case ENEMYSTATE.DEAD:
 
-               
                 Destroy(gameObject);
                 lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.KILL;
-                GetComponent<BtnManager>().Fighting.RemoveAt(0);
-                GetComponent<BtnManager>().Fighting.RemoveAt(0);
-                GetComponent<BtnManager>().Fighting.RemoveAt(0);
+
                 break;
 
             case ENEMYSTATE.KILL:
