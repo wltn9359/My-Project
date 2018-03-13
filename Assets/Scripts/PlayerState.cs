@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-
     public Animator Asagi;
     public int Hp = 100;
     public int PlayerATK = 3;

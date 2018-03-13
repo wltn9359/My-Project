@@ -87,9 +87,9 @@ public class BtnManager : MonoBehaviour {
 
     public void CloseMenu()
     {
-
-        QuestBtn[1].SetActive(false);
         Instantiate(PlayerManagers.GetComponent<PlayerManager>().PlayerList[0]);
+        QuestBtn[1].SetActive(false);
+       
 
     }
 
