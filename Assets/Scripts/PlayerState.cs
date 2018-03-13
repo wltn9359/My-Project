@@ -22,6 +22,7 @@ public class PlayerState : MonoBehaviour
 
     public enum PLAYERSTATE
     {
+        NONE=-1,
         IDLE = 0,
         FIND,
         MOVE,
@@ -53,6 +54,10 @@ public class PlayerState : MonoBehaviour
 
         switch (Playerstate)
         {
+
+            case PLAYERSTATE.NONE:
+
+                break;
 
             case PLAYERSTATE.IDLE:
                

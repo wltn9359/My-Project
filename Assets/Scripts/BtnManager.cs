@@ -10,6 +10,7 @@ public class BtnManager : MonoBehaviour {
     public GameObject War;
     public GameObject close;
     public GameObject WarSpawn;
+    public GameObject PlayerManagers;
 
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
@@ -88,6 +89,7 @@ public class BtnManager : MonoBehaviour {
     {
 
         QuestBtn[1].SetActive(false);
+        Instantiate(PlayerManagers.GetComponent<PlayerManager>().PlayerList[0]);
 
     }
 
