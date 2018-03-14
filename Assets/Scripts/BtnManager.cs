@@ -11,6 +11,7 @@ public class BtnManager : MonoBehaviour {
     public GameObject close;
     public GameObject WarSpawn;
     public GameObject PlayerManagers;
+    public GameObject Wall;
 
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
@@ -19,6 +20,8 @@ public class BtnManager : MonoBehaviour {
     public GameObject[] QuestBtn;
     public GameObject[] EnemySpawn;
     public GameObject[] PlayerSpawn;
+    public GameObject[] Slot;
+    public GameObject[] PlayerIcon;
 
     public float StayTime;
     public float DelTime;
@@ -139,5 +142,30 @@ public class BtnManager : MonoBehaviour {
         Fast[2].SetActive(false);
         Fast[0].SetActive(true);
         Time.timeScale = 1;
+    }
+
+    public void Slot1()
+    {
+
+
+
+    }
+
+    public void End()
+    {
+
+
+
+    }
+
+
+    public void OnTriggerEnter(Collider col)
+    {
+
+        if (col.gameObject.name == "Slot1")
+        {
+            gameObject.transform.position = new Vector3(-314, 124, 0);
+        }
+
     }
 }

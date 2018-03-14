@@ -36,7 +36,7 @@ public class PlayerState : MonoBehaviour
 
     void Awake()
     {
-
+        
         lookEM.RemoveAt(0);
         lookPL.RemoveAt(0);
     }
@@ -66,8 +66,6 @@ public class PlayerState : MonoBehaviour
                     Playerstate = PLAYERSTATE.MOVE;
                 }
 
-               
-
                 if (target2 == null)
                 {
                     if (lookPL.Count != 0)
@@ -95,12 +93,19 @@ public class PlayerState : MonoBehaviour
 
             case PLAYERSTATE.FIND:
 
-
+                if (target2 != null)
+                {
                     target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
-                    if (target2 == null)
+                }  
+                if (target2 == null)
+                {
+                     Playerstate = PLAYERSTATE.MOVE;
+                    target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+                    if(target2 == null)
                     {
-                        Playerstate = PLAYERSTATE.MOVE;
+                        target2 = null;
                     }
+                }
 
 
                 Playerstate = PLAYERSTATE.MOVE;
@@ -118,8 +123,6 @@ public class PlayerState : MonoBehaviour
                         Playerstate = PLAYERSTATE.ATTACK;
                     }
                 }
-
-              
 
                 Vector3 dir = target.position - transform.position;
                 dir.Normalize();
@@ -243,6 +246,8 @@ public class PlayerState : MonoBehaviour
         {
             Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
             Debug.Log("HIT");
+            gameObject.transform.Rotate(0, 180, 0);
+            gameObject.SetActive(false);
         }
     }
 
