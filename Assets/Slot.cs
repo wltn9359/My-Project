@@ -23,18 +23,23 @@ public class Slot : MonoBehaviour {
     public void OnTriggerEnter(Collider col)
     {
 
-
+        
         if(col.gameObject.tag == "Item")
         {
-
             PI.Add(col.gameObject);
-            PI[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            Debug.Log(PI[0].name);
-
-            if(PI[0].GetComponent<Icon>().Conts.Count>0)
+            if (PI.Count > 1)
             {
-                PI[0].GetComponent<Icon>().Conts.RemoveAt(0);
+                PI.RemoveAt(0);
             }
+            PI[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+
+
+
+            //if(PI[0].GetComponent<Icon>().Conts.Count>0)
+            //{
+            //    PI[0].GetComponent<Icon>().Conts.RemoveAt(0);
+            //}
 
         }    
 
