@@ -26,20 +26,20 @@ public class ConT : MonoBehaviour {
 
         if (col.gameObject.tag == "Item")
         {
-            ConTp.Add(col.gameObject);
-            if (ConTp.Count > 1)
+           
+                ConTp.Add(col.gameObject);
+
+
+            
+            if (ConTp.Count == 2)
             {
                 ConTp.RemoveAt(0);
             }
             ConTp[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-
-
-            //if (ConTp[0].GetComponent<Icon>().Slots.Count > 0)
-            //{
-            //    ConTp[0].GetComponent<Icon>().Slots.RemoveAt(0);
-            //}
         }
+
+
 
 
     }

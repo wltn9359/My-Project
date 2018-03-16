@@ -177,6 +177,7 @@ public class PlayerState : MonoBehaviour
 
                 Destroy(gameObject);
                 lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
+                
 
                 break;
 
