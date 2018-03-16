@@ -40,19 +40,22 @@ public class Icon : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
-        Debug.Log(col.gameObject.tag);
+      
+        
 
         if(col.gameObject.tag == "Back")
         {
-           
+
+            Debug.Log(col.gameObject.name);
+
             if(Conts.Count>0)
             {
-                Conts[0].GetComponent<ConT>().ConTp[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                gameObject.transform.position = new Vector3(Conts[0].transform.position.x,Conts[0].transform.position.y,Conts[0].transform.position.z);
             }
 
             if(Slots.Count>0)
             {
-                Slots[0].GetComponent<Slot>().PI[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                gameObject.transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y, Slots[0].transform.position.z);
             }
 
         }
@@ -60,6 +63,23 @@ public class Icon : MonoBehaviour
         if (col.gameObject.tag == "Slot")
         {
             Slots.Add(col.gameObject);
+
+            if(col.gameObject.tag == "Item")
+            {
+                Players.Add(col.gameObject);
+
+                if (Conts.Count > 0)
+                {
+                    Players[0].transform.position = new Vector3(Conts[0].transform.position.x, Conts[0].transform.position.y, Conts[0].transform.position.z);
+                    Players.RemoveAt(0);
+                }
+
+                if (Slots.Count > 0)
+                {
+                    Players[0].transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y, Slots[0].transform.position.z);
+                    Players.RemoveAt(0);
+                }
+            }
 
             if (Conts.Count > 0)
             {
@@ -89,6 +109,22 @@ public class Icon : MonoBehaviour
 
         if (col.gameObject.tag == "Conty")
         {
+            if (col.gameObject.tag == "Item")
+            {
+                Players.Add(col.gameObject);
+                if (Conts.Count > 0)
+                {
+                    Players[0].transform.position = new Vector3(Conts[0].transform.position.x, Conts[0].transform.position.y, Conts[0].transform.position.z);
+                    Players.RemoveAt(0);
+                }
+
+                if (Slots.Count > 0)
+                {
+                    Players[0].transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y, Slots[0].transform.position.z);
+                    Players.RemoveAt(0);
+                }
+              
+            }
 
             Conts.Add(col.gameObject);
             
@@ -120,10 +156,26 @@ public class Icon : MonoBehaviour
 
         }
 
-        if (col.gameObject.tag == "Item")
-        {
+        //if (col.gameObject.tag == "Item")
+        //{
            
+        //    if (Conts.Count < 1)
+        //    {
+        //        Players[0].transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z);
+        //    }
 
-        }
+        //    if (Slots.Count < 1)
+        //    {
+        //        Players[0].transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        //    }
+
+
+        //    //if(Slots.Count>0)
+        //    //{
+        //    //    Players[0].transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y);
+        //    //}
+           
+            
+        //}
     }
 }
