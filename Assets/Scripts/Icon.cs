@@ -1,37 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Icon : MonoBehaviour
 {
 
-    public Transform[] Slot;
+    public GameObject[] Slot;
     public GameObject[] Items;
     public List<GameObject> Slots;
     public List<GameObject> Conts;
     public List<GameObject> Players;
-    //public List<GameObject> Item;
 
+    //public List<GameObject> Item;
+    public GameObject[] cha;
+    public List<GameObject> PL;
 
     void Awake()
     {
-        Items = GameObject.FindGameObjectsWithTag("Item");
 
+      
+        cha = GameObject.FindGameObjectsWithTag("Player");
         //Vector3 ConPos = new Vector3(transform.position.x, transform.position.y, 0);
+        Items = GameObject.FindGameObjectsWithTag("Item");
+        Slot = GameObject.FindGameObjectsWithTag("Slot");
     }
 
     void Start()
     {
 
-
-
+        Items[3].GetComponent<UITexture>().mainTexture = Resources.Load(cha[3].name) as Texture;
+        Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
+        Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+        Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+            
     }
 
 
     void Update()
     {
 
-        Items = GameObject.FindGameObjectsWithTag("Item");
+       
         
     }
 
@@ -59,62 +68,11 @@ public class Icon : MonoBehaviour
         {
             Players.Add(col.gameObject);
 
+            //if(col.gameObject.name)
 
-
-
-            //if (Conts.Count > 0)
-            //{
-            //    if (Conts.Count == 2)
-            //    {
-
-            //        col.gameObject.transform.position = new Vector3(Conts[1].transform.position.x, Conts[1].transform.position.y, Conts[1].transform.position.z);
-
-            //    }
-            //    if (Conts.Count == 1)
-            //    {
-            //        if (Slots == null)
-            //        {
-            //            col.gameObject.transform.position = new Vector3(Conts[0].transform.position.x, Conts[0].transform.position.y, Conts[0].transform.position.z);
-            //        }
-            //        if (Slots.Count == 1)
-            //        {
-            //            Players[0].transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y, Slots[0].transform.position.z);
-            //        }
-            //        if (Slots.Count == 2)
-            //        {
-            //            Players[0].transform.position = new Vector3(Slots[1].transform.position.x, Slots[1].transform.position.y, Slots[1].transform.position.z);
-            //        }
-                   
-                    
-            //    }
-
-            //}
            
-            //if (Slots.Count > 0)
-            //{
-            //    if (Slots.Count == 2)
-            //    {
-            //        Players[0].transform.position = new Vector3(Slots[1].transform.position.x, Slots[1].transform.position.y, Slots[1].transform.position.z);
-            //    }
-
-            //    if (Slots.Count == 1)
-            //    {
-            //        if (Conts.Count == 2)
-            //        {
-            //            Players[0].transform.position = new Vector3(Conts[1].transform.position.x, Conts[1].transform.position.y, Conts[1].transform.position.z);
-            //        }
-            //        if (Conts.Count == 1)
-            //        {
-            //            Players[0].transform.position = new Vector3(Conts[0].transform.position.x, Conts[0].transform.position.y, Conts[0].transform.position.z);
-            //        }
-            //        if (Conts.Count == 0)
-            //        {
-            //            Players[0].transform.position = new Vector3(Slots[0].transform.position.x, Slots[0].transform.position.y, Slots[0].transform.position.z);
-            //        }
-
-            //    }
-            //}
             Players.RemoveAt(0);
+
         }
 
 
@@ -123,8 +81,91 @@ public class Icon : MonoBehaviour
         if (col.gameObject.tag == "Slot")
         {
             Slots.Add(col.gameObject);
-    
-            
+
+            if (col.gameObject.name == "Slot1")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[2].transform.position.x, col.gameObject.GetComponent<Slot>().PR[2].transform.position.y, col.gameObject.GetComponent<Slot>().PR[2].transform.position.z);
+                    cha[0].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[2].transform.position.x, col.gameObject.GetComponent<Slot>().PR[2].transform.position.y, col.gameObject.GetComponent<Slot>().PR[2].transform.position.z);
+                    cha[1].SetActive(true);
+                    cha[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[2].transform.position.x, col.gameObject.GetComponent<Slot>().PR[2].transform.position.y, col.gameObject.GetComponent<Slot>().PR[2].transform.position.z);
+                    cha[2].SetActive(true);
+                    cha[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[2].transform.position.x, col.gameObject.GetComponent<Slot>().PR[2].transform.position.y, col.gameObject.GetComponent<Slot>().PR[2].transform.position.z);
+                    cha[3].SetActive(true);
+                    cha[3].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+            }
+
+            if (col.gameObject.name == "Slot2")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[1].transform.position.x, col.gameObject.GetComponent<Slot>().PR[1].transform.position.y, col.gameObject.GetComponent<Slot>().PR[1].transform.position.z);
+                    cha[0].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[1].transform.position.x, col.gameObject.GetComponent<Slot>().PR[1].transform.position.y, col.gameObject.GetComponent<Slot>().PR[1].transform.position.z);
+                    cha[1].SetActive(true);
+                    cha[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[1].transform.position.x, col.gameObject.GetComponent<Slot>().PR[1].transform.position.y, col.gameObject.GetComponent<Slot>().PR[1].transform.position.z);
+
+                    cha[2].SetActive(true);
+                    cha[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[1].transform.position.x, col.gameObject.GetComponent<Slot>().PR[1].transform.position.y, col.gameObject.GetComponent<Slot>().PR[1].transform.position.z);
+                    cha[3].SetActive(true);
+                    cha[3].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+            }
+
+            if (col.gameObject.name == "Slot3")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[0].transform.position.x, col.gameObject.GetComponent<Slot>().PR[0].transform.position.y, col.gameObject.GetComponent<Slot>().PR[0].transform.position.z);
+                    cha[0].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[0].transform.position.x, col.gameObject.GetComponent<Slot>().PR[0].transform.position.y, col.gameObject.GetComponent<Slot>().PR[0].transform.position.z);
+                    cha[1].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[0].transform.position.x, col.gameObject.GetComponent<Slot>().PR[0].transform.position.y, col.gameObject.GetComponent<Slot>().PR[0].transform.position.z);
+                    cha[2].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<Slot>().PR[0].transform.position.x, col.gameObject.GetComponent<Slot>().PR[0].transform.position.y, col.gameObject.GetComponent<Slot>().PR[0].transform.position.z);
+                    cha[3].SetActive(true);
+                    cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.NONE;
+                }
+            }
 
             if (Conts.Count > 0)
             {
@@ -159,7 +200,104 @@ public class Icon : MonoBehaviour
             
             Conts.Add(col.gameObject);
 
-           
+            if (col.gameObject.name == "Icon1")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
+                    cha[0].SetActive(false);
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
+                    cha[1].SetActive(false);
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
+                    cha[2].SetActive(false);
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
+                    cha[3].SetActive(false);
+                }
+            }
+
+
+            if (col.gameObject.name == "Icon2")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
+                    cha[0].SetActive(false);
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
+                    cha[1].SetActive(false);
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
+                    cha[2].SetActive(false);
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
+                    cha[3].SetActive(false);
+                }
+            }
+
+            if (col.gameObject.name == "Icon3")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
+                    cha[0].SetActive(false);
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
+                    cha[1].SetActive(false);
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
+                    cha[2].SetActive(false);
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
+                    cha[3].SetActive(false);
+                }
+            }
+
+            if (col.gameObject.name == "Icon4")
+            {
+                if (gameObject.name == "Item1")
+                {
+                    cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
+                    cha[0].SetActive(false);
+                }
+                if (gameObject.name == "Item2")
+                {
+                    cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
+                    cha[1].SetActive(false);
+                }
+                if (gameObject.name == "Item3")
+                {
+                    cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
+                    cha[2].SetActive(false);
+                }
+                if (gameObject.name == "Item4")
+                {
+                    cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
+                    cha[3].SetActive(false);
+                }
+            }
+
+
 
             if (Slots.Count > 0)
             {

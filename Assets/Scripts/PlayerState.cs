@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour
 {
     public Animator Asagi;
-    public int Hp = 100;
-    public int PlayerATK = 3;
+    public int FullHp;
+    public int Hp;
+    public int PlayerATK;
     public float stateTime = 0;
     public float attackRange = 1;
     public float idleStateMaxTime;
@@ -18,10 +19,12 @@ public class PlayerState : MonoBehaviour
     public List<GameObject> lookEM;
     public List<GameObject> lookPL;
     public GameObject Btn;
+    public  Collider Endcol;
+    public List<GameObject> Respawns;
 
     public enum PLAYERSTATE
     {
-        NONE=-1,
+        NONE = -1,
         IDLE = 0,
         FIND,
         MOVE,
@@ -39,6 +42,7 @@ public class PlayerState : MonoBehaviour
         
         lookEM.RemoveAt(0);
         lookPL.RemoveAt(0);
+        Endcol = GetComponent<Collider>();
     }
 
     void Start()
@@ -55,7 +59,7 @@ public class PlayerState : MonoBehaviour
         {
 
             case PLAYERSTATE.NONE:
-
+               
                 break;
 
             case PLAYERSTATE.IDLE:
@@ -99,7 +103,7 @@ public class PlayerState : MonoBehaviour
                 }  
                 if (target2 == null)
                 {
-                     Playerstate = PLAYERSTATE.MOVE;
+                    Playerstate = PLAYERSTATE.MOVE;
                     target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
                     if(target2 == null)
                     {
@@ -113,7 +117,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.MOVE:
-         
+                
                 Asagi.SetBool("Attack", false);
                 if (target2 != null)
                 {
@@ -175,9 +179,13 @@ public class PlayerState : MonoBehaviour
                 break;
             case PLAYERSTATE.DEAD:
 
-                Destroy(gameObject);
+                //gameObject.SetActive(false);
+                //Destroy(gameObject);
                 lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
-                
+                Hp = FullHp;
+                gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
+                Playerstate = PLAYERSTATE.NONE;
+                Endcol.enabled = false;
 
                 break;
 
@@ -200,9 +208,16 @@ public class PlayerState : MonoBehaviour
 
             case PLAYERSTATE.FINISH:
 
+               Endcol.enabled =false;
                 gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
+                stateTime += Time.deltaTime;
+                if (stateTime > 17)
+                {
+                    Endcol.enabled = true;
+                }
 
-                break;
+
+                    break;
 
         }
 
@@ -220,12 +235,12 @@ public class PlayerState : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-
             lookPL.Add(col.gameObject);
             gameObject.transform.Translate(0.01f, 0, 0);
-
-            Playerstate = PLAYERSTATE.FIND;
-
+            if (Playerstate != PLAYERSTATE.FINISH)
+            {
+                Playerstate = PLAYERSTATE.FIND;   
+            }
         }
 
         if (col.gameObject.tag == "Enemy")
@@ -241,14 +256,28 @@ public class PlayerState : MonoBehaviour
             Playerstate = PLAYERSTATE.FINISH;
             gameObject.transform.Rotate(0, 180, 0);
 
+          
+              
+            
         }
 
         if (col.gameObject.tag == "Respawn")
         {
+            Endcol.enabled = false;
+            Playerstate = PLAYERSTATE.NONE;
             Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
             Debug.Log("HIT");
             gameObject.transform.Rotate(0, 180, 0);
-            gameObject.SetActive(false);
+            gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
+           
+        }
+
+        if(col.gameObject.tag == "PlayerRespawn")
+        {
+            if(Respawns.Count<1)
+            {
+                Respawns.Add(col.gameObject);
+            }
         }
     }
 
@@ -263,10 +292,18 @@ public class PlayerState : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             //Debug.Log(col.name);
-            lookPL.Remove(col.gameObject);
-            //Playerstate = PLAYERSTATE.MOVE;
-            Playerstate = PLAYERSTATE.FIND;
-           
+            //lookPL.Remove(col.gameObject);
+            Playerstate = PLAYERSTATE.IDLE;
+            //Playerstate = PLAYERSTATE.FIND;
         }
+
+        //if (col.gameObject.tag == "PlayerRespawn")
+        //{
+        //    if (Respawns.Count < 1)
+        //    {
+        //        Debug.Log("dd");
+        //        Respawns.Add(col.gameObject);
+        //    }
+        //}
     }
 }

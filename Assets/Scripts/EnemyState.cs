@@ -17,6 +17,7 @@ public class EnemyState : MonoBehaviour {
     //public Transform target3;
     public List<GameObject> lookEM;
     public List<GameObject> lookPL;
+    public GameObject Btn;
 
     public enum ENEMYSTATE
     {
@@ -248,12 +249,17 @@ public class EnemyState : MonoBehaviour {
             target2 = col.gameObject.transform;
         }
 
-        if(col.gameObject.tag == "Respawn")
+        if(col.gameObject.name == "EnemyGoal")
         {
             Enemystate = ENEMYSTATE.FINISH;
             gameObject.transform.Rotate(0, 180, 0);
         }
-        
+        if(col.gameObject.name == "PlayerGoal")
+        {
+            Btn = GameObject.FindGameObjectWithTag("");           
+            Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
+            Destroy(gameObject);
+        }        
     }
 
     void OnTriggerExit(Collider col)

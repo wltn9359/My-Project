@@ -5,11 +5,13 @@ using UnityEngine;
 public class ConT : MonoBehaviour {
 
     public List<GameObject> ConTp;
-
+    public GameObject[] PB;
     void Start ()
     {
-		
-	}
+
+        PB = GameObject.FindGameObjectsWithTag("PlayerBack");
+
+    }
 	
 	
 	void Update ()

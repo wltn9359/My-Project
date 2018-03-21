@@ -8,19 +8,19 @@ public class BtnManager : MonoBehaviour {
     public List<GameObject> Fighting;
 
     public GameObject War;
-    public GameObject close;
+    public GameObject[] close;
     public GameObject WarSpawn;
     public GameObject PlayerManagers;
     public GameObject Wall;
 
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
-    public GameObject[] Players;
+    public List<GameObject> Players;
     public GameObject[] Enemys;
     public GameObject[] QuestBtn;
     public GameObject[] EnemySpawn;
     public GameObject[] PlayerSpawn;
-    public GameObject[] Slot;
+    public GameObject[] slot;
     public GameObject[] PlayerIcon;
 
     public float StayTime;
@@ -51,15 +51,14 @@ public class BtnManager : MonoBehaviour {
     void Start ()
     {
 
-        Players = GameObject.FindGameObjectsWithTag("Player");
+     
 
 	}
 
 	void Update ()
     {
-       
-     
 
+    
 
     }
 
@@ -67,8 +66,19 @@ public class BtnManager : MonoBehaviour {
     {
         QuestBtn[0].SetActive(false);
         QuestBtn[1].SetActive(true);
-        close.SetActive(true);
-        Time.timeScale = 0; 
+        close[0].SetActive(true);
+        //Players = GameObject.FindGameObjectsWithTag("Player");
+        //Players.Add(GameObject.FindGameObjectWithTag("Player"));
+        Players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+
+        Time.timeScale = 0;
+
+        //if (Players[0].GetComponent<PlayerState>().lookEM.Count > 0)
+        //{
+        //    Players[0].GetComponent<PlayerState>().lookEM.RemoveAt(0);
+        //    Players[1].GetComponent<PlayerState>().lookEM.RemoveAt(0);
+        //    Players[2].GetComponent<PlayerState>().lookEM.RemoveAt(0);
+        //}
 
     }
 
@@ -76,7 +86,7 @@ public class BtnManager : MonoBehaviour {
     {
         QuestBtn[0].SetActive(true);
         QuestBtn[1].SetActive(false);
-        close.SetActive(false);
+        close[0].SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -100,14 +110,54 @@ public class BtnManager : MonoBehaviour {
     public void Quest1()
     {
         QuestBtn[1].SetActive(false);
-        close.SetActive(false);
+        close[0].SetActive(false);
         Time.timeScale = 1;
+
+        
 
         Instantiate(EnemyQ[0], EnemySpawn[0].transform.position, EnemySpawn[0].transform.rotation);
         Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
 
-        Players = GameObject.FindGameObjectsWithTag("Player");
+        
         Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (Players.Count == 1)
+        {
+            if (Players[0] != null)
+            {
+                Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
+                Players[0].GetComponent<PlayerState>().target2 = null;
+                Players[0].GetComponent<PlayerState>().lookEM.Clear();
+            }
+        }
+        if (Players.Count == 2)
+        {
+            if (Players[1] != null)
+            {
+                Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
+                Players[1].GetComponent<PlayerState>().target2 = null;
+                Players[1].GetComponent<PlayerState>().lookEM.Clear();
+            }
+        }
+        if (Players.Count == 3)
+        {
+            if (Players[0] != null)
+            {
+                Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[2].GetComponent<PlayerState>().Endcol.enabled = true;
+                Players[2].GetComponent<PlayerState>().target2 = null;
+                Players[2].GetComponent<PlayerState>().lookEM.Clear();
+            }
+        }
+       
+        //if (slot[0].GetComponent<Slot>().PI.Count > 0)
+        //{
+        //    slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].transform.position = new Vector3(slot[0].GetComponent<Slot>().PR[2].transform.position.x, slot[0].GetComponent<Slot>().PR[2].transform.position.y, slot[0].GetComponent<Slot>().PR[2].transform.position.z);
+        //}
+
+
 
         Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
         //Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
@@ -144,12 +194,19 @@ public class BtnManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-    public void Slot1()
+    public void Change()
     {
+        close[1].SetActive(true);
+        //Players = GameObject.FindGameObjectsWithTag("Player");
+    }
 
+    public void ChangeClose()
+    {
+        close[1].SetActive(false);
 
 
     }
+
 
     public void End()
     {
