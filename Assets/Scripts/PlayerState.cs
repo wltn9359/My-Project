@@ -21,6 +21,7 @@ public class PlayerState : MonoBehaviour
     public GameObject Btn;
     public  Collider Endcol;
     public List<GameObject> Respawns;
+    public List<GameObject> PlayerB;
 
     public enum PLAYERSTATE
     {
@@ -39,7 +40,7 @@ public class PlayerState : MonoBehaviour
 
     void Awake()
     {
-        
+        Btn = GameObject.FindGameObjectWithTag("Btn");
         lookEM.RemoveAt(0);
         lookPL.RemoveAt(0);
         Endcol = GetComponent<Collider>();
@@ -177,6 +178,7 @@ public class PlayerState : MonoBehaviour
                 }
 
                 break;
+
             case PLAYERSTATE.DEAD:
 
                 //gameObject.SetActive(false);
@@ -216,19 +218,12 @@ public class PlayerState : MonoBehaviour
                     Endcol.enabled = true;
                 }
 
-
-                    break;
+                break;
 
         }
 
  
     }
-
-  
-    //public void FindEnemy()
-    //{
-    //    Playerstate = PLAYERSTATE.FIND;
-    //}
 
 
     void OnTriggerEnter(Collider col)
@@ -245,20 +240,14 @@ public class PlayerState : MonoBehaviour
 
         if (col.gameObject.tag == "Enemy")
         {
-            //Debug.Log(col.name);
             lookEM.Add(col.gameObject);
             target2 = col.gameObject.transform;
-
         }
 
         if (col.gameObject.tag == "Re")
         {
             Playerstate = PLAYERSTATE.FINISH;
             gameObject.transform.Rotate(0, 180, 0);
-
-          
-              
-            
         }
 
         if (col.gameObject.tag == "Respawn")
@@ -272,12 +261,28 @@ public class PlayerState : MonoBehaviour
            
         }
 
-        if(col.gameObject.tag == "PlayerRespawn")
+        //if(col.gameObject.tag == "PlayerRespawn")
+        //{
+        //    if(Respawns.Count<1)
+        //    {
+        //        Respawns.Add(col.gameObject);
+        //        PlayerB[0].gameObject.GetComponent<PB>().Player.RemoveAt(0);
+        //    }
+        //    if (PlayerB.Count > 0)
+        //    {
+        //        PlayerB.RemoveAt(0);
+        //    }
+        //}
+
+        
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Player")
         {
-            if(Respawns.Count<1)
-            {
-                Respawns.Add(col.gameObject);
-            }
+            Debug.Log("hell");
+            Playerstate = PLAYERSTATE.IDLE;
         }
     }
 

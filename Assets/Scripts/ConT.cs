@@ -6,10 +6,11 @@ public class ConT : MonoBehaviour {
 
     public List<GameObject> ConTp;
     public GameObject[] PB;
+    public GameObject[] Cont;
     void Start ()
     {
 
-        PB = GameObject.FindGameObjectsWithTag("PlayerBack");
+        //PB = GameObject.FindGameObjectsWithTag("PlayerBack");
 
     }
 	
@@ -30,9 +31,15 @@ public class ConT : MonoBehaviour {
         {
            
                 ConTp.Add(col.gameObject);
+            //if(Cont[0].GetComponent<ConT>().ConTp.Count>0)
+            //{
+            //    PB[3].GetComponent<PB>().Player.Add(col.gameObject);
+            //}
+            //if (Cont[0].GetComponent<ConT>().ConTp.Count < 1)
+            //{
+            //    PB[3].GetComponent<PB>().Player.Clear();
+            //}
 
-
-            
             if (ConTp.Count == 2)
             {
                 ConTp.RemoveAt(0);

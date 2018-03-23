@@ -256,7 +256,7 @@ public class EnemyState : MonoBehaviour {
         }
         if(col.gameObject.name == "PlayerGoal")
         {
-            Btn = GameObject.FindGameObjectWithTag("");           
+            Btn = GameObject.FindGameObjectWithTag("Btn");           
             Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
             Destroy(gameObject);
         }        

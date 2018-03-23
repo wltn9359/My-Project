@@ -6,12 +6,16 @@ public class BtnManager : MonoBehaviour {
 
     public List<GameObject> Warning;
     public List<GameObject> Fighting;
+    public List<GameObject> Item;
 
     public GameObject War;
     public GameObject[] close;
     public GameObject WarSpawn;
     public GameObject PlayerManagers;
     public GameObject Wall;
+    public GameObject Shop;
+    public GameObject Inshop;
+    public GameObject InGotcha;
 
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
@@ -22,12 +26,13 @@ public class BtnManager : MonoBehaviour {
     public GameObject[] PlayerSpawn;
     public GameObject[] slot;
     public GameObject[] PlayerIcon;
+    public GameObject[] Pause;
 
     public float StayTime;
     public float DelTime;
-    
-    
-  
+
+
+
 
 
 
@@ -48,22 +53,23 @@ public class BtnManager : MonoBehaviour {
         }
     }
 
-    void Start ()
+    void Start()
     {
 
-     
 
-	}
 
-	void Update ()
+    }
+
+    void Update()
     {
 
-    
+
 
     }
 
     public void ViewQuest()
     {
+        Players.Clear();
         QuestBtn[0].SetActive(false);
         QuestBtn[1].SetActive(true);
         close[0].SetActive(true);
@@ -71,7 +77,7 @@ public class BtnManager : MonoBehaviour {
         //Players.Add(GameObject.FindGameObjectWithTag("Player"));
         Players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
 
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
 
         //if (Players[0].GetComponent<PlayerState>().lookEM.Count > 0)
         //{
@@ -79,7 +85,6 @@ public class BtnManager : MonoBehaviour {
         //    Players[1].GetComponent<PlayerState>().lookEM.RemoveAt(0);
         //    Players[2].GetComponent<PlayerState>().lookEM.RemoveAt(0);
         //}
-
     }
 
     public void CloseQuest()
@@ -87,7 +92,7 @@ public class BtnManager : MonoBehaviour {
         QuestBtn[0].SetActive(true);
         QuestBtn[1].SetActive(false);
         close[0].SetActive(false);
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
 
@@ -100,67 +105,92 @@ public class BtnManager : MonoBehaviour {
 
     public void CloseMenu()
     {
-        Instantiate(PlayerManagers.GetComponent<PlayerManager>().PlayerList[0]);
+
         QuestBtn[1].SetActive(false);
-       
+
 
     }
 
 
     public void Quest1()
     {
-        QuestBtn[1].SetActive(false);
-        close[0].SetActive(false);
-        Time.timeScale = 1;
-
-        
-
-        Instantiate(EnemyQ[0], EnemySpawn[0].transform.position, EnemySpawn[0].transform.rotation);
-        Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
-
-        
-        Enemys = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (Players.Count == 1)
+        if (Players.Count > 0)
         {
-            if (Players[0] != null)
-            {
-                Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
-                Players[0].GetComponent<PlayerState>().target2 = null;
-                Players[0].GetComponent<PlayerState>().lookEM.Clear();
-            }
-        }
-        if (Players.Count == 2)
-        {
-            if (Players[1] != null)
-            {
-                Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
-                Players[1].GetComponent<PlayerState>().target2 = null;
-                Players[1].GetComponent<PlayerState>().lookEM.Clear();
-            }
-        }
-        if (Players.Count == 3)
-        {
-            if (Players[0] != null)
-            {
-                Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                Players[2].GetComponent<PlayerState>().Endcol.enabled = true;
-                Players[2].GetComponent<PlayerState>().target2 = null;
-                Players[2].GetComponent<PlayerState>().lookEM.Clear();
-            }
-        }
-       
-        //if (slot[0].GetComponent<Slot>().PI.Count > 0)
-        //{
-        //    slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].transform.position = new Vector3(slot[0].GetComponent<Slot>().PR[2].transform.position.x, slot[0].GetComponent<Slot>().PR[2].transform.position.y, slot[0].GetComponent<Slot>().PR[2].transform.position.z);
-        //}
+            QuestBtn[1].SetActive(false);
+            close[0].SetActive(false);
+            //Time.timeScale = 1;
 
 
 
-        Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
-        //Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
+            Instantiate(EnemyQ[0], EnemySpawn[0].transform.position, EnemySpawn[0].transform.rotation);
+            Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
+
+
+            Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+
+            if (Players.Count == 1)
+            {
+                if (Players[0] != null)
+                {
+                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[0].GetComponent<PlayerState>().target2 = null;
+                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
+
+                }
+            }
+            if (Players.Count == 2)
+            {
+                if (Players[0] != null)
+                {
+                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[0].GetComponent<PlayerState>().target2 = null;
+                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
+                }
+                if (Players[1] != null)
+                {
+                    Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[1].GetComponent<PlayerState>().target2 = null;
+                    Players[1].GetComponent<PlayerState>().lookEM.Clear();
+                }
+            }
+            if (Players.Count == 3)
+            {
+                if (Players[0] != null)
+                {
+                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[0].GetComponent<PlayerState>().target2 = null;
+                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
+                }
+                if (Players[1] != null)
+                {
+                    Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[1].GetComponent<PlayerState>().target2 = null;
+                    Players[1].GetComponent<PlayerState>().lookEM.Clear();
+                }
+                if (Players[2] != null)
+                {
+                    Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                    Players[2].GetComponent<PlayerState>().Endcol.enabled = true;
+                    Players[2].GetComponent<PlayerState>().target2 = null;
+                    Players[2].GetComponent<PlayerState>().lookEM.Clear();
+                }
+            }
+
+            //if (slot[0].GetComponent<Slot>().PI.Count > 0)
+            //{
+            //    slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].transform.position = new Vector3(slot[0].GetComponent<Slot>().PR[2].transform.position.x, slot[0].GetComponent<Slot>().PR[2].transform.position.y, slot[0].GetComponent<Slot>().PR[2].transform.position.z);
+            //}
+
+
+
+            Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
+            //Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;
+        }
     }
 
     public void Quest2()
@@ -197,6 +227,33 @@ public class BtnManager : MonoBehaviour {
     public void Change()
     {
         close[1].SetActive(true);
+       
+        //if (Players.Count==4)
+        //{
+        //    Item[0].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[1].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[2].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[3].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //}
+        //if (Players.Count == 3)
+        //{
+        //    Item[0].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[1].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[2].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+            
+        //}
+        //if (Players.Count ==2)
+        //{
+        //    Item[0].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //    Item[1].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+
+
+        //}
+        //if (Players.Count ==1)
+        //{
+        //    Item[0].GetComponent<Icon>().cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+           
+        //}
         //Players = GameObject.FindGameObjectsWithTag("Player");
     }
 
@@ -208,13 +265,62 @@ public class BtnManager : MonoBehaviour {
     }
 
 
-    public void End()
+    public void Pause1()
     {
+        Time.timeScale = 0;
+        Pause[0].SetActive(false);
+        Pause[1].SetActive(true);
+    }
 
+
+    public void Pause2()
+    {
+        Pause[0].SetActive(true);
+        Pause[1].SetActive(false);
+
+        if (Fast[0] == true)
+        {
+            Time.timeScale = 1;
+        }
+        if (Fast[1] == true)
+        {
+            Time.timeScale = 2;
+        }
+        if (Fast[2] == true)
+        {
+            Time.timeScale = 3;
+        }
 
 
     }
 
+
+    public void OpenShop()
+    {
+        Shop.SetActive(true);
+        
+    }
+
+    public void CloseShop()
+    {
+        Shop.SetActive(false);
+        Players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+       
+    }
+
+    public void InShop()
+    {
+        Inshop.SetActive(true);
+        InGotcha.SetActive(false);
+    }
+
+    public void InGotCha()
+    {
+
+        Inshop.SetActive(false);
+        InGotcha.SetActive(true);
+
+    }
 
     public void OnTriggerEnter(Collider col)
     {
