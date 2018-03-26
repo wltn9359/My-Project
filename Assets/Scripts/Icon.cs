@@ -20,7 +20,7 @@ public class Icon : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("dd");
+        
         cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         Btn = GameObject.FindGameObjectWithTag("Btn");
         Ennd = GetComponent<Collider>();
@@ -33,8 +33,44 @@ public class Icon : MonoBehaviour
 
     void Start()
     {
-       
-        
+
+        if (cha.Count == 4)
+        {
+            Items[3].GetComponent<Icon>().Ennd.enabled = true;
+            Items[2].GetComponent<Icon>().Ennd.enabled = true;
+            Items[1].GetComponent<Icon>().Ennd.enabled = true;
+            Items[3].GetComponent<UITexture>().mainTexture = Resources.Load(cha[3].name) as Texture;
+            Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
+            Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+            Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+        }
+        if (cha.Count == 3)
+        {
+            Items[3].GetComponent<Icon>().Ennd.enabled = false;
+            Items[2].GetComponent<Icon>().Ennd.enabled = true;
+            Items[1].GetComponent<Icon>().Ennd.enabled = true;
+            Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
+            Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+            Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+
+        }
+
+        if (cha.Count == 2)
+        {
+            Items[3].GetComponent<Icon>().Ennd.enabled = false;
+            Items[2].GetComponent<Icon>().Ennd.enabled = false;
+            Items[1].GetComponent<Icon>().Ennd.enabled = true;
+            Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+            Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+        }
+
+        if (cha.Count == 1)
+        {
+            Items[3].GetComponent<Icon>().Ennd.enabled = false;
+            Items[2].GetComponent<Icon>().Ennd.enabled = false;
+            Items[1].GetComponent<Icon>().Ennd.enabled = false;
+            Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+        }
 
     }
 
@@ -42,43 +78,7 @@ public class Icon : MonoBehaviour
     void Update()
     {
         
-            if (cha.Count == 4)
-            {
-                Items[3].GetComponent<Icon>().Ennd.enabled = true;
-                Items[2].GetComponent<Icon>().Ennd.enabled = true;
-                Items[1].GetComponent<Icon>().Ennd.enabled = true;
-                Items[3].GetComponent<UITexture>().mainTexture = Resources.Load(cha[3].name) as Texture;
-                Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
-                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
-                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
-            }
-            if (cha.Count == 3)
-            {
-                Items[3].GetComponent<Icon>().Ennd.enabled = false;
-                Items[2].GetComponent<Icon>().Ennd.enabled = true;
-                Items[1].GetComponent<Icon>().Ennd.enabled = true;
-                Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
-                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
-                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
-
-            }
-
-            if (cha.Count == 2)
-            {
-                Items[3].GetComponent<Icon>().Ennd.enabled = false;
-                Items[2].GetComponent<Icon>().Ennd.enabled = false;
-                Items[1].GetComponent<Icon>().Ennd.enabled = true;
-                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
-                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
-            }
-
-            if (cha.Count == 1)
-            {
-                Items[3].GetComponent<Icon>().Ennd.enabled = false;
-                Items[2].GetComponent<Icon>().Ennd.enabled = false;
-                Items[1].GetComponent<Icon>().Ennd.enabled = false;
-                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
-            }
+          
 
 
     }
@@ -254,7 +254,10 @@ public class Icon : MonoBehaviour
 
         if (col.gameObject.tag == "Conty")
         {
-            
+            cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
+            cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
+            cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
+            cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
             Conts.Add(col.gameObject);
             if (Btn.GetComponent<BtnManager>().Players.Count > 0)
             {
@@ -265,6 +268,7 @@ public class Icon : MonoBehaviour
                         cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
                         //cha[0].SetActive(false);
                         cha[0].GetComponent<PlayerState>().Endcol.enabled = false;
+
                     }
                     if (gameObject.name == "Item2")
                     {
@@ -412,9 +416,45 @@ public class Icon : MonoBehaviour
     public void FInd()
     {
         Debug.Log("HI");
-        if (cha.Count < 1)
-        {
+        cha.Clear();
             cha.AddRange(GameObject.FindGameObjectsWithTag("Player"));
-        }
+            if (cha.Count == 4)
+            {
+                Items[3].GetComponent<Icon>().Ennd.enabled = true;
+                Items[2].GetComponent<Icon>().Ennd.enabled = true;
+                Items[1].GetComponent<Icon>().Ennd.enabled = true;
+                Items[3].GetComponent<UITexture>().mainTexture = Resources.Load(cha[3].name) as Texture;
+                Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
+                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+            }
+            if (cha.Count == 3)
+            {
+                Items[3].GetComponent<Icon>().Ennd.enabled = false;
+                Items[2].GetComponent<Icon>().Ennd.enabled = true;
+                Items[1].GetComponent<Icon>().Ennd.enabled = true;
+                Items[2].GetComponent<UITexture>().mainTexture = Resources.Load(cha[2].name) as Texture;
+                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+
+            }
+
+            if (cha.Count == 2)
+            {
+                Items[3].GetComponent<Icon>().Ennd.enabled = false;
+                Items[2].GetComponent<Icon>().Ennd.enabled = false;
+                Items[1].GetComponent<Icon>().Ennd.enabled = true;
+                Items[1].GetComponent<UITexture>().mainTexture = Resources.Load(cha[1].name) as Texture;
+                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+            }
+
+            if (cha.Count == 1)
+            {
+                Items[3].GetComponent<Icon>().Ennd.enabled = false;
+                Items[2].GetComponent<Icon>().Ennd.enabled = false;
+                Items[1].GetComponent<Icon>().Ennd.enabled = false;
+                Items[0].GetComponent<UITexture>().mainTexture = Resources.Load(cha[0].name) as Texture;
+            }
+        
     }
 }

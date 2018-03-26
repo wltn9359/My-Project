@@ -32,8 +32,8 @@ public class Slot : MonoBehaviour {
             
             PI.Add(col.gameObject);
 
-            
 
+            //PI[0].GetComponent<Icon>().cha.RemoveAt(1);
 
             if (PI.Count > 1)
             {

@@ -40,6 +40,7 @@ public class PlayerState : MonoBehaviour
 
     void Awake()
     {
+        //Respawns.Add(GameObject.FindGameObjectWithTag("PlayerRespawn"));
         Btn = GameObject.FindGameObjectWithTag("Btn");
         lookEM.RemoveAt(0);
         lookPL.RemoveAt(0);
@@ -48,7 +49,9 @@ public class PlayerState : MonoBehaviour
 
     void Start()
     {
+        
         target = GameObject.FindGameObjectWithTag("Re").transform;
+        //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
 
         //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
@@ -64,7 +67,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.IDLE:
-               
+
                 //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
                 if (lookPL.Count == 0)
                 {
@@ -77,14 +80,11 @@ public class PlayerState : MonoBehaviour
                     {
                         lookPL.RemoveAt(0);
 
-                        if (target2 == null)
-                        {
-                            Playerstate = PLAYERSTATE.FIND;
-                        }
-
                     }
-
                 }
+
+
+
 
                 if (lookEM.Count > 0)
                 {
@@ -105,11 +105,8 @@ public class PlayerState : MonoBehaviour
                 if (target2 == null)
                 {
                     Playerstate = PLAYERSTATE.MOVE;
-                    target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
-                    if(target2 == null)
-                    {
-                        target2 = null;
-                    }
+                    target2 = null;
+                    
                 }
 
 
@@ -180,7 +177,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.DEAD:
-
+                target2 = null;
                 //gameObject.SetActive(false);
                 //Destroy(gameObject);
                 lookEM[0].GetComponent<EnemyState>().Enemystate = EnemyState.ENEMYSTATE.KILL;
@@ -188,12 +185,14 @@ public class PlayerState : MonoBehaviour
                 gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
                 Playerstate = PLAYERSTATE.NONE;
                 Endcol.enabled = false;
+                lookEM.Clear();
 
                 break;
 
             case PLAYERSTATE.KILL:
                
                 Debug.Log("kill");
+                target2 = null;
 
                 if (lookPL.Count > 0)
                 {
@@ -205,19 +204,19 @@ public class PlayerState : MonoBehaviour
                     lookEM.RemoveAt(0);
                 }
                 Playerstate = PLAYERSTATE.MOVE;
-
-               break;
+                lookEM.Clear();
+                break;
 
             case PLAYERSTATE.FINISH:
-
-               Endcol.enabled =false;
+                target2 = null;
+                Endcol.enabled =false;
                 gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
                 stateTime += Time.deltaTime;
                 if (stateTime > 17)
                 {
                     Endcol.enabled = true;
                 }
-
+                lookEM.Clear();
                 break;
 
         }
@@ -234,7 +233,7 @@ public class PlayerState : MonoBehaviour
             gameObject.transform.Translate(0.01f, 0, 0);
             if (Playerstate != PLAYERSTATE.FINISH)
             {
-                Playerstate = PLAYERSTATE.FIND;   
+                Playerstate = PLAYERSTATE.IDLE;   
             }
         }
 
@@ -261,20 +260,23 @@ public class PlayerState : MonoBehaviour
            
         }
 
-        //if(col.gameObject.tag == "PlayerRespawn")
-        //{
-        //    if(Respawns.Count<1)
-        //    {
-        //        Respawns.Add(col.gameObject);
-        //        PlayerB[0].gameObject.GetComponent<PB>().Player.RemoveAt(0);
-        //    }
-        //    if (PlayerB.Count > 0)
-        //    {
-        //        PlayerB.RemoveAt(0);
-        //    }
-        //}
+        if (col.gameObject.tag == "PlayerRespawn")
+        {
+            if (Respawns.Count < 1)
+            {
+                Respawns.Add(col.gameObject);
+                if (PlayerB.Count > 0)
+                {
+                    PlayerB[0].gameObject.GetComponent<PB>().Player.RemoveAt(0);
+                }
+            }
+            if (PlayerB.Count > 0)
+            {
+                PlayerB.RemoveAt(0);
+            }
+        }
 
-        
+
     }
 
     private void OnCollisionEnter(Collision col)

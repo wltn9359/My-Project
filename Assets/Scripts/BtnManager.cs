@@ -114,11 +114,36 @@ public class BtnManager : MonoBehaviour {
 
     public void Quest1()
     {
+       
         if (Players.Count > 0)
         {
             QuestBtn[1].SetActive(false);
             close[0].SetActive(false);
-            //Time.timeScale = 1;
+            //Time.timeScale = 1
+           
+          if(Players[0] != null)
+            {
+                Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[0].GetComponent<PlayerState>().Endcol.enabled = true; ;
+            }
+
+            if (Players[1] != null)
+            {
+                Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[1].GetComponent<PlayerState>().Endcol.enabled = true; ;
+            }
+
+            if (Players[2] != null)
+            {
+                Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+                Players[2].GetComponent<PlayerState>().Endcol.enabled = true; ;
+            }
+         
+                
+               
+               
+                
+           
 
 
 
@@ -128,65 +153,65 @@ public class BtnManager : MonoBehaviour {
 
             Enemys = GameObject.FindGameObjectsWithTag("Enemy");
 
-            if (Players.Count == 1)
-            {
-                if (Players[0] != null)
-                {
-                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[0].GetComponent<PlayerState>().target2 = null;
-                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
+            //if (Players.Count == 1)
+            //{
+            //    if (Players[0] != null)
+            //    {
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().target2 = null;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().lookEM.Clear();
 
-                }
-            }
-            if (Players.Count == 2)
-            {
-                if (Players[0] != null)
-                {
-                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[0].GetComponent<PlayerState>().target2 = null;
-                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
-                }
-                if (Players[1] != null)
-                {
-                    Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[1].GetComponent<PlayerState>().target2 = null;
-                    Players[1].GetComponent<PlayerState>().lookEM.Clear();
-                }
-            }
-            if (Players.Count == 3)
-            {
-                if (Players[0] != null)
-                {
-                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[0].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[0].GetComponent<PlayerState>().target2 = null;
-                    Players[0].GetComponent<PlayerState>().lookEM.Clear();
-                }
-                if (Players[1] != null)
-                {
-                    Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[1].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[1].GetComponent<PlayerState>().target2 = null;
-                    Players[1].GetComponent<PlayerState>().lookEM.Clear();
-                }
-                if (Players[2] != null)
-                {
-                    Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
-                    Players[2].GetComponent<PlayerState>().Endcol.enabled = true;
-                    Players[2].GetComponent<PlayerState>().target2 = null;
-                    Players[2].GetComponent<PlayerState>().lookEM.Clear();
-                }
-            }
-
+            //    }
+            //}
+            //if (Players.Count == 2)
+            //{
+            //    if (Players[0] != null)
+            //    {
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().target2 = null;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().lookEM.Clear();
+            //    }
+            //    if (Players[1] != null)
+            //    {
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().target2 = null;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().lookEM.Clear();
+            //    }
+            //}
+            //if (Players.Count>2)
+            //{
+            //    if (Players[0] != null)
+            //    {
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().target2 = null;
+            //        slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].GetComponent<PlayerState>().lookEM.Clear();
+            //    }
+            //    if (Players[1] != null)
+            //    {
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().target2 = null;
+            //        slot[1].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[1].GetComponent<PlayerState>().lookEM.Clear();
+            //    }
+            //    if (Players[2] != null)
+            //    {
+            //        slot[2].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.IDLE;
+            //        slot[2].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[2].GetComponent<PlayerState>().Endcol.enabled = true;
+            //        slot[2].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[2].GetComponent<PlayerState>().target2 = null;
+            //        slot[2].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[2].GetComponent<PlayerState>().lookEM.Clear();
+            //    }
+              
+            //}
             //if (slot[0].GetComponent<Slot>().PI.Count > 0)
             //{
             //    slot[0].GetComponent<Slot>().PI[0].GetComponent<Icon>().cha[0].transform.position = new Vector3(slot[0].GetComponent<Slot>().PR[2].transform.position.x, slot[0].GetComponent<Slot>().PR[2].transform.position.y, slot[0].GetComponent<Slot>().PR[2].transform.position.z);
             //}
 
-
+            slot[0].GetComponent<Slot>().PI.Clear();
 
             Instantiate(War, WarSpawn.transform.position, WarSpawn.transform.rotation);
             //Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.FIND;

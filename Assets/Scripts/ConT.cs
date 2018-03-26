@@ -40,6 +40,8 @@ public class ConT : MonoBehaviour {
             //    PB[3].GetComponent<PB>().Player.Clear();
             //}
 
+            
+
             if (ConTp.Count == 2)
             {
                 ConTp.RemoveAt(0);
