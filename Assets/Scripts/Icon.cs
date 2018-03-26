@@ -254,10 +254,10 @@ public class Icon : MonoBehaviour
 
         if (col.gameObject.tag == "Conty")
         {
-            cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
-            cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
-            cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
-            cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
+          
+           
+           
+           
             Conts.Add(col.gameObject);
             if (Btn.GetComponent<BtnManager>().Players.Count > 0)
             {
@@ -268,6 +268,7 @@ public class Icon : MonoBehaviour
                         cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
                         //cha[0].SetActive(false);
                         cha[0].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
 
                     }
                     if (gameObject.name == "Item2")
@@ -275,18 +276,22 @@ public class Icon : MonoBehaviour
                         cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
                         //cha[1].SetActive(false);
                         cha[1].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item3")
                     {
                         cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
                         //cha[2].SetActive(false);
                         cha[2].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item4")
                     {
                         cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[3].transform.position.x, col.gameObject.GetComponent<ConT>().PB[3].transform.position.y, col.gameObject.GetComponent<ConT>().PB[3].transform.position.z);
                         //cha[3].SetActive(false);
                         cha[3].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
+
                     }
                 }
 
@@ -298,24 +303,28 @@ public class Icon : MonoBehaviour
                         cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
                         //cha[0].SetActive(false);
                         cha[0].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item2")
                     {
                         cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
                         //cha[1].SetActive(false);
                         cha[1].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item3")
                     {
                         cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
                         //cha[2].SetActive(false);
                         cha[2].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item4")
                     {
                         cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[2].transform.position.x, col.gameObject.GetComponent<ConT>().PB[2].transform.position.y, col.gameObject.GetComponent<ConT>().PB[2].transform.position.z);
                         //cha[3].SetActive(false);
                         cha[3].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                 }
 
@@ -326,24 +335,28 @@ public class Icon : MonoBehaviour
                         cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
                         //cha[0].SetActive(false);
                         cha[0].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item2")
                     {
                         cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
                         //cha[1].SetActive(false);
                         cha[1].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item3")
                     {
                         cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
                         //cha[2].SetActive(false);
                         cha[2].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item4")
                     {
                         cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[1].transform.position.x, col.gameObject.GetComponent<ConT>().PB[1].transform.position.y, col.gameObject.GetComponent<ConT>().PB[1].transform.position.z);
                         //cha[3].SetActive(false);
                         cha[3].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                 }
 
@@ -354,24 +367,28 @@ public class Icon : MonoBehaviour
                         cha[0].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
                         //cha[0].SetActive(false);
                         cha[0].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[0].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item2")
                     {
                         cha[1].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
                         //cha[1].SetActive(false);
                         cha[1].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[1].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item3")
                     {
                         cha[2].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
                         //cha[2].SetActive(false);
                         cha[2].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[2].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                     if (gameObject.name == "Item4")
                     {
                         cha[3].transform.position = new Vector3(col.gameObject.GetComponent<ConT>().PB[0].transform.position.x, col.gameObject.GetComponent<ConT>().PB[0].transform.position.y, col.gameObject.GetComponent<ConT>().PB[0].transform.position.z);
                         //cha[3].SetActive(false);
                         cha[3].GetComponent<PlayerState>().Endcol.enabled = false;
+                        cha[3].GetComponent<PlayerState>().gameObject.SetActive(false);
                     }
                 }
 

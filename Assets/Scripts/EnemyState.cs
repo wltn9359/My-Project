@@ -18,6 +18,9 @@ public class EnemyState : MonoBehaviour {
     public List<GameObject> lookEM;
     public List<GameObject> lookPL;
     public GameObject Btn;
+    public List<GameObject> Enemy;
+    public List<GameObject> Player;
+    public GameObject Btnm;
 
     public enum ENEMYSTATE
     {
@@ -34,14 +37,15 @@ public class EnemyState : MonoBehaviour {
 
     void Awake()
     {
-        
+        Btnm = GameObject.FindGameObjectWithTag("Btn");
         lookEM.RemoveAt(0);
         lookPL.RemoveAt(0);
     }
 
     void Start()
     {
-   
+        Btnm = GameObject.FindGameObjectWithTag("Btn");
+        Player.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         target = GameObject.FindGameObjectWithTag("Respawn").transform;
         target2 = GameObject.FindGameObjectWithTag("Player").transform;
         //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
@@ -52,9 +56,9 @@ public class EnemyState : MonoBehaviour {
 
         switch (Enemystate)
         {
-          case ENEMYSTATE.IDLE:
+            case ENEMYSTATE.IDLE:
 
-               if (lookEM.Count == 0)
+                if (lookEM.Count == 0)
                 {
                     Enemystate = ENEMYSTATE.MOVE;
                 }
@@ -74,6 +78,7 @@ public class EnemyState : MonoBehaviour {
                     }
 
                 }
+                
 
                 if (lookPL.Count > 0)
                 {
@@ -86,14 +91,14 @@ public class EnemyState : MonoBehaviour {
                 break;
 
             case ENEMYSTATE.MOVE:
-                
-               // if (target2 == null)
-               // {
-               //     if (lookPL.Count == 0)
-               //     {
-               //         target2 = GameObject.FindGameObjectWithTag("Player").transform;
-               //     }
-               //}
+
+                // if (target2 == null)
+                // {
+                //     if (lookPL.Count == 0)
+                //     {
+                //         target2 = GameObject.FindGameObjectWithTag("Player").transform;
+                //     }
+                //}
                 Flonne.SetBool("Attack", false);
                 if (target2 != null)
                 {
@@ -128,12 +133,12 @@ public class EnemyState : MonoBehaviour {
                 //    dis.Normalize();
                 //    gameObject.transform.Translate(dis * Speed * Time.deltaTime);
                 //}
-               
+
                 if (lookEM.Count > 0)
                 {
                     if (lookEM[0] != null)
                     {
-                      Enemystate = ENEMYSTATE.IDLE;
+                        Enemystate = ENEMYSTATE.IDLE;
                     }
 
                     //else
@@ -142,16 +147,17 @@ public class EnemyState : MonoBehaviour {
                     //}
 
                 }
-               
+
+                Btnm.GetComponent<BtnManager>();
 
                 break;
 
             case ENEMYSTATE.ATTACK:
                 Flonne.SetBool("Attack", true);
 
-                if(lookPL.Count == 0)
+                if (lookPL.Count == 0)
                 {
-                  Enemystate = ENEMYSTATE.MOVE;
+                    Enemystate = ENEMYSTATE.MOVE;
                 }
 
                 stateTime += Time.deltaTime;
@@ -162,19 +168,19 @@ public class EnemyState : MonoBehaviour {
                     lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.DAMAGE;
                 }
 
-           
-              
+
+
 
                 break;
 
             case ENEMYSTATE.DAMAGE:
 
-              
+
                 if (Hp <= 0)
                 {
                     Enemystate = ENEMYSTATE.DEAD;
                     Hp = 0;
-                  
+
                 }
                 if (Hp > 0)
                 {
@@ -184,9 +190,12 @@ public class EnemyState : MonoBehaviour {
                 }
                 break;
             case ENEMYSTATE.DEAD:
-
-                Destroy(gameObject);
+              
+                
                 lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.KILL;
+               
+                
+                Destroy(gameObject);
 
                 break;
 

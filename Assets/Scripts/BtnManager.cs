@@ -20,7 +20,7 @@ public class BtnManager : MonoBehaviour {
     public GameObject[] Fast;
     public GameObject[] EnemyQ;
     public List<GameObject> Players;
-    public GameObject[] Enemys;
+    public List<GameObject> Enemys;
     public GameObject[] QuestBtn;
     public GameObject[] EnemySpawn;
     public GameObject[] PlayerSpawn;
@@ -55,8 +55,7 @@ public class BtnManager : MonoBehaviour {
 
     void Start()
     {
-
-
+        
 
     }
 
@@ -151,7 +150,7 @@ public class BtnManager : MonoBehaviour {
             Instantiate(EnemyQ[1], EnemySpawn[1].transform.position, EnemySpawn[1].transform.rotation);
 
 
-            Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+            Enemys.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
             //if (Players.Count == 1)
             //{
@@ -355,5 +354,79 @@ public class BtnManager : MonoBehaviour {
             gameObject.transform.position = new Vector3(-314, 124, 0);
         }
 
+    }
+
+    //public void PL()
+    //{
+    //    Players.Clear();
+    //    Players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        
+    //    if (Players[0].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+    //    {
+    //        Players[0].GetComponent<PlayerState>().target2.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    //        if(Players[0].GetComponent<PlayerState>().target2.Count<1)
+    //        {
+    //            Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+    //        }
+    //    }
+
+    //    if (Players[1].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+    //    {
+
+    //        Players[1].GetComponent<PlayerState>().target2.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    //        if (Players[1].GetComponent<PlayerState>().target2.Count < 1)
+    //        {
+    //            Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+    //        }
+    //    }
+
+    //    if (Players[2].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+    //    {
+    //        Players[2].GetComponent<PlayerState>().target2.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    //        if (Players[2].GetComponent<PlayerState>().target2.Count < 1)
+    //        {
+    //            Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+    //        }
+    //    }
+    //}
+
+    public void FInds()
+    {
+
+        Debug.Log("FIND");
+        Players.Clear();
+        Enemys.Clear();
+
+
+        Players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        Enemys.AddRange( GameObject.FindGameObjectsWithTag("Enemy"));
+        //if(Players.Count==1)
+        //{
+        //    Players[0].GetComponent<PlayerState>().Playerse.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        //}
+
+        if(Enemys.Count<1)
+        {
+
+            if (Players.Count > 0)
+            {
+                if (Players[0].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+                {
+                    Players[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+                   
+                }
+                if (Players[1].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+                {
+                    
+                    Players[1].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+                 
+                }
+                if (Players[2].GetComponent<PlayerState>().Playerstate != PlayerState.PLAYERSTATE.NONE)
+                {
+                   
+                    Players[2].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.MOVE;
+                }
+            }
+        }
     }
 }

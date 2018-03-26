@@ -22,6 +22,9 @@ public class PlayerState : MonoBehaviour
     public  Collider Endcol;
     public List<GameObject> Respawns;
     public List<GameObject> PlayerB;
+    public List<GameObject> Enemyf;
+    public List<GameObject> Playerse;
+    
 
     public enum PLAYERSTATE
     {
@@ -47,10 +50,11 @@ public class PlayerState : MonoBehaviour
         Endcol = GetComponent<Collider>();
     }
 
-    void Start()
+    public void Start()
     {
-        
+      
         target = GameObject.FindGameObjectWithTag("Re").transform;
+      
         //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
 
         //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
@@ -63,25 +67,29 @@ public class PlayerState : MonoBehaviour
         {
 
             case PLAYERSTATE.NONE:
+
                
                 break;
 
             case PLAYERSTATE.IDLE:
 
-                //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+                target2 = null;
                 if (lookPL.Count == 0)
                 {
-                    Playerstate = PLAYERSTATE.MOVE;
-                }
-
-                if (target2 == null)
-                {
-                    if (lookPL.Count != 0)
+                    if (target2 == null)
                     {
-                        lookPL.RemoveAt(0);
-
+                        Playerstate = PLAYERSTATE.MOVE;
                     }
                 }
+
+                //if (target2 == null)
+                //{
+                //    target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
+                //    if(gameObject.GetComponent<PlayerState>().target2 ==null)
+                //    {
+                //        Playerstate = PLAYERSTATE.MOVE;
+                //    }
+                //}
 
 
 
@@ -115,6 +123,16 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.MOVE:
+
+                if(gameObject.transform.position.x>10)
+                {
+                    Endcol.enabled = false;
+                }
+
+                else
+                {
+                    Endcol.enabled = true;
+                }
                 
                 Asagi.SetBool("Attack", false);
                 if (target2 != null)
@@ -177,6 +195,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.DEAD:
+                //lookPL[0].GetComponent<PlayerState>().lookPL.Clear();
                 target2 = null;
                 //gameObject.SetActive(false);
                 //Destroy(gameObject);
@@ -186,6 +205,9 @@ public class PlayerState : MonoBehaviour
                 Playerstate = PLAYERSTATE.NONE;
                 Endcol.enabled = false;
                 lookEM.Clear();
+                lookPL.Clear();
+
+                Btn.GetComponent<BtnManager>().Players.RemoveAt(0);
 
                 break;
 
@@ -205,6 +227,9 @@ public class PlayerState : MonoBehaviour
                 }
                 Playerstate = PLAYERSTATE.MOVE;
                 lookEM.Clear();
+
+                //Btnm.GetComponent<BtnManager>().Enemys.Clear();
+                Btn.GetComponent<BtnManager>().FInds();
                 break;
 
             case PLAYERSTATE.FINISH:
@@ -212,11 +237,18 @@ public class PlayerState : MonoBehaviour
                 Endcol.enabled =false;
                 gameObject.transform.Translate(-Speed * Time.deltaTime, 0, 0);
                 stateTime += Time.deltaTime;
-                if (stateTime > 17)
+                if (gameObject.transform.position.x>15)
                 {
-                    Endcol.enabled = true;
+                    Endcol.enabled = false;
+                    Playerstate = PLAYERSTATE.NONE;
+                    Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
+                    Debug.Log("HIT");
+                    gameObject.transform.Rotate(0, 180, 0);
+                    gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
+
                 }
                 lookEM.Clear();
+                lookPL.Clear();
                 break;
 
         }
@@ -230,7 +262,7 @@ public class PlayerState : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             lookPL.Add(col.gameObject);
-            gameObject.transform.Translate(0.01f, 0, 0);
+            gameObject.transform.Translate(0.1f, 0, 0);
             if (Playerstate != PLAYERSTATE.FINISH)
             {
                 Playerstate = PLAYERSTATE.IDLE;   
@@ -249,16 +281,16 @@ public class PlayerState : MonoBehaviour
             gameObject.transform.Rotate(0, 180, 0);
         }
 
-        if (col.gameObject.tag == "Respawn")
-        {
-            Endcol.enabled = false;
-            Playerstate = PLAYERSTATE.NONE;
-            Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
-            Debug.Log("HIT");
-            gameObject.transform.Rotate(0, 180, 0);
-            gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
+        //if (col.gameObject.tag == "Respawn")
+        //{
+        //    Endcol.enabled = false;
+        //    Playerstate = PLAYERSTATE.NONE;
+        //    Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
+        //    Debug.Log("HIT");
+        //    gameObject.transform.Rotate(0, 180, 0);
+        //    gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
            
-        }
+        //}
 
         if (col.gameObject.tag == "PlayerRespawn")
         {
@@ -279,14 +311,6 @@ public class PlayerState : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.tag == "Player")
-        {
-            Debug.Log("hell");
-            Playerstate = PLAYERSTATE.IDLE;
-        }
-    }
 
     void OnTriggerExit(Collider col)
     {
@@ -298,8 +322,12 @@ public class PlayerState : MonoBehaviour
 
         if (col.gameObject.tag == "Player")
         {
+
             //Debug.Log(col.name);
-            //lookPL.Remove(col.gameObject);
+            if (lookPL.Count > 0)
+            {
+                lookPL.RemoveAt(0);
+            }
             Playerstate = PLAYERSTATE.IDLE;
             //Playerstate = PLAYERSTATE.FIND;
         }
@@ -312,5 +340,15 @@ public class PlayerState : MonoBehaviour
         //        Respawns.Add(col.gameObject);
         //    }
         //}
+    }
+
+    public void FindEne()
+    {
+        Enemyf.Clear();
+        Enemyf.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        if(Enemyf.Count<1)
+        {
+            Playerstate = PLAYERSTATE.FINISH;
+        }
     }
 }
