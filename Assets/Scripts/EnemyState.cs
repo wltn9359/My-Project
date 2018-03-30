@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyState : MonoBehaviour {
 
+    public GameObject TM;
     public Animator Flonne;
     public int Hp = 100;
     public int EnemyATK = 1;
@@ -21,6 +22,9 @@ public class EnemyState : MonoBehaviour {
     public List<GameObject> Enemy;
     public List<GameObject> Player;
     public GameObject Btnm;
+    public int gol;
+    public int Totalgol;
+
 
     public enum ENEMYSTATE
     {
@@ -44,6 +48,7 @@ public class EnemyState : MonoBehaviour {
 
     void Start()
     {
+        TM = GameObject.FindGameObjectWithTag("TIme");
         Btnm = GameObject.FindGameObjectWithTag("Btn");
         Player.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         target = GameObject.FindGameObjectWithTag("Respawn").transform;
@@ -190,28 +195,36 @@ public class EnemyState : MonoBehaviour {
                 }
                 break;
             case ENEMYSTATE.DEAD:
-              
-                
+                Flonne.SetBool("Dead", true);
+
                 lookPL[0].GetComponent<PlayerState>().Playerstate = PlayerState.PLAYERSTATE.KILL;
+
+                if (Totalgol==0)
+                {
+                    Totalgol += gol;
+                    TM.GetComponent<TimeManager>().GSU += Totalgol;
+                    Btnm.GetComponent<BtnManager>().LV.width += 10;
+                }
+                Destroy(gameObject,1f);
+
                
-                
-                Destroy(gameObject);
+               
 
                 break;
 
             case ENEMYSTATE.KILL:
                 //target3 = GameObject.FindGameObjectWithTag("Enemy").transform;
-                Debug.Log("kill");
-                if (lookPL.Count > 0)
-                {
-                    lookPL.RemoveAt(0);
-                }
-
-                if (lookEM.Count > 0)
-                {
-                    lookEM.RemoveAt(0);
-                }
                 Enemystate = ENEMYSTATE.MOVE;
+                Debug.Log("kill");
+
+                lookPL.Clear();
+
+
+
+                lookEM.Clear();
+
+                
+                
 
            
                 //if(target3 != null)
@@ -238,8 +251,17 @@ public class EnemyState : MonoBehaviour {
 
         }
 
+        //if(Enemystate == ENEMYSTATE.DEAD )
+        //{
+        //    TM.GetComponent<TimeManager>().GSU += gol;
+        //}
+
     }
 
+    public void GOLD()
+    {
+       
+    }
 
 
     void OnTriggerEnter(Collider col)

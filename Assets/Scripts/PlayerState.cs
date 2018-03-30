@@ -24,6 +24,7 @@ public class PlayerState : MonoBehaviour
     public List<GameObject> PlayerB;
     public List<GameObject> Enemyf;
     public List<GameObject> Playerse;
+    public GameObject Au;
     
 
     public enum PLAYERSTATE
@@ -52,7 +53,9 @@ public class PlayerState : MonoBehaviour
 
     public void Start()
     {
-      
+
+       
+
         target = GameObject.FindGameObjectWithTag("Re").transform;
       
         //target2 = GameObject.FindGameObjectWithTag("Enemy").transform;
@@ -67,8 +70,8 @@ public class PlayerState : MonoBehaviour
         {
 
             case PLAYERSTATE.NONE:
+                Asagi.SetBool("Dead", false);
 
-               
                 break;
 
             case PLAYERSTATE.IDLE:
@@ -195,6 +198,7 @@ public class PlayerState : MonoBehaviour
                 break;
 
             case PLAYERSTATE.DEAD:
+                Asagi.SetBool("Dead", true);
                 //lookPL[0].GetComponent<PlayerState>().lookPL.Clear();
                 target2 = null;
                 //gameObject.SetActive(false);
@@ -208,7 +212,7 @@ public class PlayerState : MonoBehaviour
                 lookPL.Clear();
 
                 Btn.GetComponent<BtnManager>().Players.RemoveAt(0);
-
+              
                 break;
 
             case PLAYERSTATE.KILL:
@@ -239,13 +243,14 @@ public class PlayerState : MonoBehaviour
                 stateTime += Time.deltaTime;
                 if (gameObject.transform.position.x>15)
                 {
+                    Au = GameObject.FindGameObjectWithTag("AU");
                     Endcol.enabled = false;
                     Playerstate = PLAYERSTATE.NONE;
                     Btn.GetComponent<BtnManager>().QuestBtn[0].SetActive(true);
                     Debug.Log("HIT");
                     gameObject.transform.Rotate(0, 180, 0);
                     gameObject.transform.position = new Vector3(gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.x, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.y, gameObject.GetComponent<PlayerState>().Respawns[0].transform.position.z);
-
+                    Au.SetActive(false);
                 }
                 lookEM.Clear();
                 lookPL.Clear();
@@ -294,6 +299,8 @@ public class PlayerState : MonoBehaviour
 
         if (col.gameObject.tag == "PlayerRespawn")
         {
+
+           
             if (Respawns.Count < 1)
             {
                 Respawns.Add(col.gameObject);

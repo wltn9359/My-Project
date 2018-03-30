@@ -8,6 +8,7 @@ public class GotchaManager : MonoBehaviour
     public GameObject[] PrePlayers;
     public GameObject[] Pb;
     public List<GameObject> Playess;
+    public GameObject BU;
 
 	
 	void Start ()
@@ -28,145 +29,150 @@ public class GotchaManager : MonoBehaviour
     public void Gotcha()
     {
 
-       Per = Random.Range(0, 4);
-
-        if (Pb[0].GetComponent<PB>().Player.Count == 0)
+        if (BU.GetComponent<TimeManager>().GSU > 149)
         {
-            if (Per == 0)
-            {
-                GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
-                Instance.name = "mawang";
-            }
 
-            if(Per == 1)
-            {
-                GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
-                Instance.name = "Flonne";
-               
-            }
+            BU.GetComponent<TimeManager>().GSU -= 150;
 
-            if (Per == 2)
-            {
-                GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
-                Instance.name = "Flonne";
-                
-            }
+            Per = Random.Range(0, 4);
 
-            if (Per == 3)
-            {
-                GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
-                Instance.name = "Flonne";
-                
-            }
-        }
-        if (Pb[0].GetComponent<PB>().Player.Count>0)
-        {
-            if (Pb[1].GetComponent<PB>().Player.Count == 0)
+            if (Pb[0].GetComponent<PB>().Player.Count == 0)
             {
                 if (Per == 0)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "mawang";
-
+                    GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
+                    Instance.name = "Lime";
                 }
 
                 if (Per == 1)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                   
+                    GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
+                    Instance.name = "Kum";
+
                 }
 
                 if (Per == 2)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                   
+                    GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
+                    Instance.name = "Buster";
+
                 }
 
                 if (Per == 3)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                   
+                    GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[0].transform.position.x, Pb[0].transform.position.y, Pb[0].transform.position.z), transform.rotation) as GameObject;
+                    Instance.name = "Lime";
+
                 }
             }
-        }
-
-        if(Pb[1].GetComponent<PB>().Player.Count > 0)
-        {
-            if (Pb[2].GetComponent<PB>().Player.Count == 0)
+            if (Pb[0].GetComponent<PB>().Player.Count > 0)
             {
-                if (Per == 0)
+                if (Pb[1].GetComponent<PB>().Player.Count == 0)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "mawang";
-                  
-                }
+                    if (Per == 0)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
 
-                if (Per == 1)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                }
+                    }
 
-                if (Per == 2)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                   
-                }
+                    if (Per == 1)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Kum";
 
-                if (Per == 3)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                    
+                    }
+
+                    if (Per == 2)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Buster";
+
+                    }
+
+                    if (Per == 3)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[1].transform.position.x, Pb[1].transform.position.y, Pb[1].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
+
+                    }
                 }
             }
-        }
 
-        
-
-        if(Pb[2].GetComponent<PB>().Player.Count > 0)
-        {
-            if (Pb[3].GetComponent<PB>().Player.Count == 0)
+            if (Pb[1].GetComponent<PB>().Player.Count > 0)
             {
-                if (Per == 0)
+                if (Pb[2].GetComponent<PB>().Player.Count == 0)
                 {
-                    GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "mawang";
-                   
-                }
+                    if (Per == 0)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
 
-                if (Per == 1)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                }
+                    }
 
-                if (Per == 2)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                   
-                }
+                    if (Per == 1)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Kum";
+                    }
 
-                if (Per == 3)
-                {
-                    GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
-                    Instance.name = "Flonne";
-                    
+                    if (Per == 2)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Buster";
+
+                    }
+
+                    if (Per == 3)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[2].transform.position.x, Pb[2].transform.position.y, Pb[2].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
+
+                    }
                 }
             }
+
+
+
+            if (Pb[2].GetComponent<PB>().Player.Count > 0)
+            {
+                if (Pb[3].GetComponent<PB>().Player.Count == 0)
+                {
+                    if (Per == 0)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[0], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
+
+                    }
+
+                    if (Per == 1)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[1], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Kum";
+                    }
+
+                    if (Per == 2)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[2], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Buster";
+
+                    }
+
+                    if (Per == 3)
+                    {
+                        GameObject Instance = Instantiate(PrePlayers[3], transform.position = new Vector3(Pb[3].transform.position.x, Pb[3].transform.position.y, Pb[3].transform.position.z), transform.rotation) as GameObject;
+                        Instance.name = "Lime";
+
+                    }
+                }
+            }
+
+
+
+
+
+
         }
-
-        
-                
-
-
-
-
 
     }
    
